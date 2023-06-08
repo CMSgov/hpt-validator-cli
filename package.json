@@ -1,6 +1,6 @@
 {
   "name": "hpt-validator-cli",
-  "version": "0.1.0-alpha.2",
+  "version": "0.1.0-alpha.3",
   "author": "CMS Open Source <opensource@cms.hhs.gov>",
   "license": "CC0-1.0",
   "description": "CLI for validating CMS Hospital Price Transparency machine-readable files",
@@ -10,8 +10,8 @@
     "cms-hpt-validator": "./dist/index.js"
   },
   "scripts": {
-    "build": "tsc",
-    "prepublish": "npx tsc",
+    "build": "npx tsc && chmod +x ./dist/index.js",
+    "prepublish": "npx tsc && chmod +x ./dist/index.js",
     "lint": "tsc && eslint \"**/*.{js,ts}\"",
     "lint:fix": "tsc --noEmit && eslint \"**/*.{js,ts}\" --quiet --fix",
     "prettier": "prettier --check \"**/*.{js,ts}\"",
