@@ -21,7 +21,7 @@
   "dependencies": {
     "chalk": "^5.2.0",
     "commander": "^10.0.1",
-    "hpt-validator": "^0.1.0-alpha.3"
+    "hpt-validator": "^0.1.0-alpha.11"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^5.57.0",
