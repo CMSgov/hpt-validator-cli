@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import { program, Option } from "commander"
+import { program, Argument, Option } from "commander"
 import { validate } from "./commands.js"
 
 main().catch((error) => {
@@ -10,6 +10,7 @@ main().catch((error) => {
 async function main() {
   program
     .argument("<filepath>", "filepath to validate")
+    .addArgument(new Argument("<version>").choices(["v1.1"]))
     .addOption(
       new Option("-f, --format <string>", "file format of file").choices([
         "csv",

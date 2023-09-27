@@ -16,10 +16,11 @@ npm install -g hpt-validator-cli
 
 ```sh
 cms-hpt-validator --help
-Usage: cms-hpt-validator [options] <filepath>
+Usage: cms-hpt-validator [options] <filepath> <version>
 
 Arguments:
   filepath               filepath to validate
+  version                (choices: "v1.1")
 
 Options:
   -f, --format <string>  file format of file (choices: "csv", "json")

@@ -9,6 +9,7 @@ type FileFormat = "csv" | "json"
 
 export async function validate(
   filepath: string,
+  version: string,
   options: { [key: string]: string }
 ) {
   const format = getFileFormat(filepath, options)
@@ -24,7 +25,11 @@ export async function validate(
     console.log(chalk.red("Filename invalid"))
   }
 
-  const validationResult = await validateFile(filepath, format as FileFormat)
+  const validationResult = await validateFile(
+    filepath,
+    version,
+    format as FileFormat
+  )
   if (!validationResult) return
 
   const errors = validationResult.errors.filter(({ warning }) => !warning)
@@ -56,12 +61,20 @@ export async function validate(
 
 async function validateFile(
   filename: string,
+  version: string,
   format: FileFormat
 ): Promise<ValidationResult | null> {
+  const schemaVersion = version as "v1.1" | "v2.0"
   if (format === "csv") {
-    return await validateCsv(fs.createReadStream(filename, "utf-8"))
+    return await validateCsv(
+      fs.createReadStream(filename, "utf-8"),
+      schemaVersion
+    )
   } else if (format === "json") {
-    return await validateJson(fs.createReadStream(filename, "utf-8"))
+    return await validateJson(
+      fs.createReadStream(filename, "utf-8"),
+      schemaVersion
+    )
   } else {
     return null
   }
