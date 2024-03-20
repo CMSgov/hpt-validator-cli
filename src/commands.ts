@@ -1,7 +1,7 @@
 import fs from "fs"
 import path from "path"
 import chalk from "chalk"
-import { validateFilename, validateCsv, validateJson } from "hpt-validator"
+import { validateCsv, validateJson } from "hpt-validator"
 import { ValidationResult } from "hpt-validator/src/types"
 import { InvalidArgumentError } from "commander"
 
@@ -17,12 +17,6 @@ export async function validate(
     throw new InvalidArgumentError(
       `Unable to parse format from arguments or filepath: ${filepath}`
     )
-  }
-
-  if (validateFilename(path.basename(filepath))) {
-    console.log(chalk.green("Filename valid"))
-  } else {
-    console.log(chalk.red("Filename invalid"))
   }
 
   const validationResult = await validateFile(
