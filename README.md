@@ -16,21 +16,37 @@ npm install -g hpt-validator-cli
 
 ```sh
 cms-hpt-validator --help
-Usage: cms-hpt-validator [options] <filepath> <version>
+Usage: index [options] <filepath> <version>
 
 Arguments:
-  filepath               filepath to validate
-  version                (choices: "v1.1")
+  filepath                   filepath to validate
+  version                    (choices: "v2.0", "v2.0.0")
 
 Options:
-  -f, --format <string>  file format of file (choices: "csv", "json")
-  -h, --help             display help for command
+  -f, --format <string>      file format of file (choices: "csv", "json")
+  -e, --error-limit <value>  maximum number for errors and warnings (default:
+                             1000)
+  -h, --help                 display help for command
 ```
 
-### Example
+### Examples
+
+Basic usage:
 
 ```sh
-cms-hpt-validator ./sample.csv
+cms-hpt-validator ./sample.csv v2.0.0
+```
+
+Overriding the default error limit to show 50 errors and warnings:
+
+```sh
+cms-hpt-validator ./sample.csv v2.0.0 -e 50
+```
+
+Overriding the default error limit to show all errors and warnings:
+
+```sh
+cms-hpt-validator ./sample.csv v2.0.0 -e 0
 ```
 
 ## Contributing

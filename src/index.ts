@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import { program, Argument, Option } from "commander"
+import { program, Argument, Option, InvalidArgumentError } from "commander"
 import { validate } from "./commands.js"
 
 main().catch((error) => {
@@ -17,7 +17,21 @@ async function main() {
         "json",
       ])
     )
+    .option(
+      "-e, --error-limit <value>",
+      "maximum number for errors and warnings",
+      ensureInt,
+      1000
+    )
     .action(validate)
 
   program.parseAsync(process.argv)
+}
+
+function ensureInt(value: string) {
+  const parsedValue = parseInt(value, 10)
+  if (isNaN(parsedValue)) {
+    throw new InvalidArgumentError("Must be a number.")
+  }
+  return parsedValue
 }
