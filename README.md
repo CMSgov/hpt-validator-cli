@@ -1,8 +1,14 @@
-# Hospital Price Transparency Validator CLI
+# Hospital Price Transparency CLI Validator
 
 CLI for validating CMS Hospital Price Transparency machine-readable files
 
 ## Getting Started
+
+### Prerequisites
+These were the minimum versions used to develop the CLI tool. It is recommended to keep both Node and NPM up-to-date with the latest releases.
+
+* Node (version 16.x)  
+* NPM (version 8.5.x)
 
 ### Installation
 
