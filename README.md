@@ -55,6 +55,10 @@ Overriding the default error limit to show all errors and warnings:
 cms-hpt-validator ./sample.csv v2.0.0 -e 0
 ```
 
+## Limitations
+There may be a situation in which the CLI tool will run out of memory due to the amount of errors that are found in the file being validated. If you run into this NODE error, update the amount of errors to a smaller value that will be allowed to be collected with the `-e, --error-limit` flag.
+
+
 ## Contributing
 
 Thank you for considering contributing to an Open Source project of the US
