@@ -14,7 +14,9 @@ async function main() {
     .addOption(
       new Option("-f, --format <string>", "file format of file").choices([
         "csv",
+        "csv.gz",
         "json",
+        "json.gz",
       ])
     )
     .option(
