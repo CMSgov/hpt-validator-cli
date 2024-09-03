@@ -1,6 +1,7 @@
 import fs from "fs"
 import path from "path"
 import chalk from "chalk"
+import zlib from "zlib"
 import {
   CsvValidationOptions,
   JsonValidatorOptions,
@@ -10,7 +11,7 @@ import {
 import { ValidationResult } from "hpt-validator/src/types"
 import { InvalidArgumentError } from "commander"
 
-type FileFormat = "csv" | "json"
+type FileFormat = "csv" | "json" | "json.gz" | "csv.gz"
 
 export async function validate(
   filepath: string,
@@ -68,15 +69,20 @@ async function validateFile(
   validatorOptions: CsvValidationOptions | JsonValidatorOptions
 ): Promise<ValidationResult | null> {
   const schemaVersion = version as "v1.1" | "v2.0"
-  if (format === "csv") {
+  const reader = format.endsWith(".gz") 
+    ? fs.createReadStream(filename).pipe(zlib.createGunzip()).setEncoding("utf-8")
+    : fs.createReadStream(filename, "utf-8")
+    ;
+
+  if (format === "csv" || format === "csv.gz") {
     return await validateCsv(
-      fs.createReadStream(filename, "utf-8"),
+      reader,
       schemaVersion,
       validatorOptions as CsvValidationOptions
     )
-  } else if (format === "json") {
+  } else if (format === "json" || format === "json.gz") {
     return await validateJson(
-      fs.createReadStream(filename, "utf-8"),
+      reader,
       schemaVersion,
       validatorOptions as JsonValidatorOptions
     )
@@ -91,10 +97,14 @@ function getFileFormat(
 ): FileFormat | null {
   if (fileFormat.format) return fileFormat.format as FileFormat
 
-  const fileExt = path.extname(filepath).toLowerCase().replace(".", "")
-  if (["csv", "json"].includes(fileExt)) {
-    return fileExt as FileFormat
+  const isGzipped = path.extname(filepath).toLowerCase() === ".gz"
+  const fileExt = path.extname(path.basename(filepath, isGzipped ? ".gz" : ""))
+  switch (fileExt) {
+    case ".csv":
+      return (isGzipped ? "csv.gz" : "csv") as FileFormat
+    case ".json":
+      return (isGzipped ? "json.gz" : "json") as FileFormat
+    default:
+      return null;
   }
-
-  return null
 }
