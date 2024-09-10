@@ -24,14 +24,16 @@ export async function validate(
     )
   }
 
+  const inputStream = fs.createReadStream(filepath, "utf-8")
   const validationResult = await validateFile(
-    filepath,
+    inputStream,
     version,
     format as FileFormat,
     {
       maxErrors: options.errorLimit as number,
     }
   )
+  inputStream.close()
   if (!validationResult) return
 
   const errors = validationResult.errors.filter(({ warning }) => !warning)
@@ -62,7 +64,7 @@ export async function validate(
 }
 
 async function validateFile(
-  filename: string,
+  inputStream: fs.ReadStream,
   version: string,
   format: FileFormat,
   validatorOptions: CsvValidationOptions | JsonValidatorOptions
@@ -70,13 +72,13 @@ async function validateFile(
   const schemaVersion = version as "v1.1" | "v2.0"
   if (format === "csv") {
     return await validateCsv(
-      fs.createReadStream(filename, "utf-8"),
+      inputStream,
       schemaVersion,
       validatorOptions as CsvValidationOptions
     )
   } else if (format === "json") {
     return await validateJson(
-      fs.createReadStream(filename, "utf-8"),
+      inputStream,
       schemaVersion,
       validatorOptions as JsonValidatorOptions
     )
