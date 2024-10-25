@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import { program, Argument, Option, InvalidArgumentError } from "commander"
+import { Argument, Option, InvalidArgumentError, Command } from "commander"
 import { validate } from "./commands.js"
 
 main().catch((error) => {
@@ -8,6 +8,8 @@ main().catch((error) => {
 })
 
 async function main() {
+  const program = new Command().name("cms-hpt-validator").showHelpAfterError()
+
   program
     .argument("<filepath>", "filepath to validate")
     .addArgument(new Argument("<version>").choices(["v2.0", "v2.0.0"]))
