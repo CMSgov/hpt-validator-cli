@@ -8,7 +8,6 @@ import {
   validateJson,
 } from "hpt-validator"
 import { ValidationResult } from "hpt-validator/src/types"
-import { InvalidArgumentError } from "commander"
 
 type FileFormat = "csv" | "json"
 
