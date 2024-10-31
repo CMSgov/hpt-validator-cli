@@ -8,7 +8,6 @@ import {
   validateJson,
 } from "hpt-validator"
 import { ValidationResult } from "hpt-validator/src/types"
-import { InvalidArgumentError } from "commander"
 
 type FileFormat = "csv" | "json"
 
@@ -19,9 +18,10 @@ export async function validate(
 ) {
   const format = getFileFormat(filepath, options)
   if (!format) {
-    throw new InvalidArgumentError(
-      `Unable to parse format from arguments or filepath: ${filepath}`
+    console.error(
+      `This is not a valid file type. Files must be in a required CMS template format (.json or .csv)`
     )
+    return
   }
 
   const inputStream = fs.createReadStream(filepath, "utf-8")
