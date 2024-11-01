@@ -18,7 +18,7 @@ export async function validate(
 ) {
   const format = getFileFormat(filepath, options)
   if (!format) {
-    console.error(
+    console.log(
       `This is not a valid file type. Files must be in a required CMS template format (.json or .csv)`
     )
     return
