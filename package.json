@@ -1,6 +1,6 @@
 {
   "name": "hpt-validator-cli",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "author": "CMS Open Source <opensource@cms.hhs.gov>",
   "license": "CC0-1.0",
   "description": "CLI for validating CMS Hospital Price Transparency machine-readable files",
