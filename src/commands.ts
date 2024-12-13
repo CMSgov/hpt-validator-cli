@@ -1,6 +1,7 @@
 import fs from "fs"
 import path from "path"
 import chalk from "chalk"
+import zlib from "zlib"
 import {
   CsvValidationOptions,
   JsonValidatorOptions,
@@ -24,7 +25,13 @@ export async function validate(
     return
   }
 
-  const inputStream = fs.createReadStream(filepath, "utf-8")
+  const inputStream = filepath.endsWith(".gz")
+    ? fs
+        .createReadStream(filepath)
+        .pipe(zlib.createGunzip())
+        .setEncoding("utf-8")
+    : fs.createReadStream(filepath, "utf-8")
+
   const validationResult = await validateFile(
     inputStream,
     version,
@@ -64,7 +71,7 @@ export async function validate(
 }
 
 async function validateFile(
-  inputStream: fs.ReadStream,
+  inputStream: fs.ReadStream | NodeJS.ReadableStream,
   version: string,
   format: FileFormat,
   validatorOptions: CsvValidationOptions | JsonValidatorOptions
@@ -92,6 +99,10 @@ function getFileFormat(
   fileFormat: { [key: string]: string | number }
 ): FileFormat | null {
   if (fileFormat.format) return fileFormat.format as FileFormat
+
+  if (filepath.endsWith(".gz")) {
+    filepath = filepath.slice(0, -3)
+  }
 
   const fileExt = path.extname(filepath).toLowerCase().replace(".", "")
   if (["csv", "json"].includes(fileExt)) {
