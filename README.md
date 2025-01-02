@@ -54,10 +54,12 @@ Overriding the default error limit to show all errors and warnings:
 ```sh
 cms-hpt-validator ./sample.csv v2.0.0 -e 0
 ```
+### Machine-readable File Extensions
+The two current allowable file formats for the HPT MRFs are CSV and JSON. The CLI will auto detect the file format passed into the tool for files that end with `.csv` or `.json` and will run the appropriate validator for that file. The CLI can also detect files compressed by gzip. Files ending with the `.gz` extension will be decompressed before validation. These file format detections can be combined, so files ending with `.csv.gz` or `.json.gz` will be decompressed and validated as CSV or JSON, respectively. For other files ending with `.gz`, use the `-f` option described above.
+
 
 ## Limitations
 There may be a situation in which the CLI tool will run out of memory due to the amount of errors that are found in the file being validated. If you run into this NODE error, update the amount of errors to a smaller value that will be allowed to be collected with the `-e, --error-limit` flag.
-
 
 ## Contributing
 
