@@ -55,7 +55,7 @@ Overriding the default error limit to show all errors and warnings:
 cms-hpt-validator ./sample.csv v2.0.0 -e 0
 ```
 ### Machine-readable File Extensions
-The two current allowable file formats for the HPT MRFs are CSV and JSON. The CLI will auto detect the file format passed into the tool and will run the appropriate validator for that file. The CLI can also detect files compressed by gzip. Files ending with the `.gz` extension will have their file format detected automatically and run through the validator.
+The two current allowable file formats for the HPT MRFs are CSV and JSON. The CLI will auto detect the file format passed into the tool for files that end with `.csv` or `.json` and will run the appropriate validator for that file. The CLI can also detect files compressed by gzip. Files ending with the `.gz` extension will be decompressed before validation. These file format detections can be combined, so files ending with `.csv.gz` or `.json.gz` will be decompressed and validated as CSV or JSON, respectively. For other files ending with `.gz`, use the `-f` option described above.
 
 
 ## Limitations
