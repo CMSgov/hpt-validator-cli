@@ -43,8 +43,7 @@ export async function validate(
   inputStream.close()
   if (!validationResult) return
 
-  const errors = validationResult.errors.filter(({ warning }) => !warning)
-  const warnings = validationResult.errors.filter(({ warning }) => warning)
+  const errors = validationResult.errors
 
   if (errors.length > 0) {
     console.log(
@@ -55,18 +54,6 @@ export async function validate(
     console.table(errors)
   } else {
     console.log(chalk.green("No errors found"))
-  }
-  if (warnings.length > 0) {
-    console.log(
-      chalk.yellow(
-        `${
-          warnings.length === 1 ? "1 warning" : `${warnings.length} warnings`
-        } found`
-      )
-    )
-    console.table(warnings)
-  } else {
-    console.log(chalk.green("No warnings found"))
   }
 }
 

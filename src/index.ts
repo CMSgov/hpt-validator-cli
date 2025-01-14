@@ -21,7 +21,7 @@ async function main() {
     )
     .option(
       "-e, --error-limit <value>",
-      "maximum number for errors and warnings",
+      "maximum number for errors",
       ensureInt,
       1000
     )
