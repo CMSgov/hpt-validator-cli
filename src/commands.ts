@@ -38,6 +38,7 @@ export async function validate(
     format as FileFormat,
     {
       maxErrors: options.errorLimit as number,
+      newline: options.newline as string,
     }
   )
   inputStream.close()
