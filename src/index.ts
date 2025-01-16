@@ -19,6 +19,13 @@ async function main() {
         "json",
       ])
     )
+    .addOption(
+      new Option("-n, --newline <string>", "newline delimiter for file").choices([
+        "\n",
+        "\r",
+        "\r\n",
+      ])
+    )
     .option(
       "-e, --error-limit <value>",
       "maximum number for errors",
