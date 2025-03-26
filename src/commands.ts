@@ -12,7 +12,7 @@ import { ValidationResult } from "hpt-validator/src/types"
 
 type FileFormat = "csv" | "json"
 
-const VALIDATOR_VERSION = "1.9.3"
+const VALIDATOR_VERSION = "1.10.0"
 
 export async function validate(
   filepath: string,
