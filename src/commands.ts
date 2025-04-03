@@ -12,6 +12,8 @@ import { ValidationResult } from "hpt-validator/src/types"
 
 type FileFormat = "csv" | "json"
 
+const VALIDATOR_VERSION = "1.10.0"
+
 export async function validate(
   filepath: string,
   version: string,
@@ -32,6 +34,9 @@ export async function validate(
         .setEncoding("utf-8")
     : fs.createReadStream(filepath, "utf-8")
 
+  console.log(`Validating file: ${path.resolve(filepath)}`)
+  console.log(`Using hpt-validator version ${VALIDATOR_VERSION}`)
+  console.log(`Validator run started at ${new Date().toString()}`)
   const validationResult = await validateFile(
     inputStream,
     version,
@@ -43,6 +48,7 @@ export async function validate(
   inputStream.close()
   if (!validationResult) return
 
+  console.log(`Validator run completed at ${new Date().toString()}`)
   const errors = validationResult.errors
 
   if (errors.length > 0) {
