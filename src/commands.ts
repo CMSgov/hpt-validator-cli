@@ -50,6 +50,7 @@ export async function validate(
 
   console.log(`Validator run completed at ${new Date().toString()}`)
   const errors = validationResult.errors
+  const alerts = validationResult.alerts
 
   if (errors.length > 0) {
     console.log(
@@ -60,6 +61,14 @@ export async function validate(
     console.table(errors)
   } else {
     console.log(chalk.green("No errors found"))
+  }
+  if (alerts) {
+    console.log(
+      chalk.yellow(
+        `${alerts.length === 1 ? "1 alert" : `${alerts.length} alerts`} found`
+      )
+    )
+    console.table(alerts)
   }
 }
 
