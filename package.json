@@ -21,7 +21,7 @@
   "dependencies": {
     "chalk": "^5.3.0",
     "commander": "^12.1.0",
-    "hpt-validator": "^1.10.0"
+    "hpt-validator": "^1.11.0"
   },
   "devDependencies": {
     "@stylistic/eslint-plugin-js": "^2.9.0",
