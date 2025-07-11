@@ -1,13 +1,13 @@
 {
-  "name": "hpt-validator-cli",
-  "version": "1.7.1",
-  "author": "CMS Open Source <opensource@cms.hhs.gov>",
+  "name": "@carecarta/hpt-validator-cli",
+  "version": "1.7.4",
+  "author": "CareCarta <dev@carecarta.com>",
   "license": "CC0-1.0",
-  "description": "CLI for validating CMS Hospital Price Transparency machine-readable files",
+  "description": "CLI for validating CMS Hospital Price Transparency machine-readable files (CareCarta fork)",
   "type": "module",
   "main": "./dist/index.js",
   "bin": {
-    "cms-hpt-validator": "./dist/index.js"
+    "carecarta-hpt-validator": "./dist/index.js"
   },
   "scripts": {
     "build": "npx tsc && chmod +x ./dist/index.js",

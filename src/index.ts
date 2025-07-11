@@ -8,7 +8,7 @@ main().catch((error) => {
 })
 
 async function main() {
-  const program = new Command().name("cms-hpt-validator").showHelpAfterError()
+  const program = new Command().name("carecarta-hpt-validator").showHelpAfterError()
 
   program
     .argument("<filepath>", "filepath to validate")

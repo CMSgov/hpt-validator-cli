@@ -1,2 +1,32 @@
+# Development files
 .vscode
 .DS_Store
+*.log
+.nyc_output
+coverage
+
+# Source files (only include dist)
+src/
+tsconfig.json
+*.tsbuildinfo
+
+# Test files
+test/
+*.spec.ts
+*.test.ts
+
+# Git files
+.git/
+.github/
+.gitignore
+
+# Development configs
+eslint.config.mjs
+.prettierrc
+.prettierignore
+
+# Local hpt-validator directory (we depend on the npm package)
+hpt-validator/
+
+# Node modules (already excluded by default)
+node_modules/
