@@ -7,8 +7,8 @@ import {
   JsonValidatorOptions,
   validateCsv,
   validateJson,
-} from "hpt-validator"
-import { ValidationResult } from "hpt-validator/src/types"
+} from "@cmsgov/hpt-validator"
+import { ValidationResult } from "@cmsgov/hpt-validator/src/types"
 
 type FileFormat = "csv" | "json"
 
