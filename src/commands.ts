@@ -22,9 +22,10 @@ export async function validate(
 ) {
   const format = getFileFormat(filepath, options)
   const outputFormat = (options.output as OutputFormat) || "table"
-  
+
   if (!format) {
-    const message = "This is not a valid file type. Files must be in a required CMS template format (.json or .csv)"
+    const message =
+      "This is not a valid file type. Files must be in a required CMS template format (.json or .csv)"
     if (outputFormat === "json") {
       console.log(JSON.stringify({ error: message }, null, 2))
     } else {
@@ -45,7 +46,7 @@ export async function validate(
     console.log(`Using hpt-validator version ${VALIDATOR_VERSION}`)
     console.log(`Validator run started at ${new Date().toString()}`)
   }
-  
+
   const validationResult = await validateFile(
     inputStream,
     version,
@@ -67,7 +68,7 @@ export async function validate(
       errorCount: validationResult.errors.length,
       alertCount: validationResult.alerts.length,
       errors: validationResult.errors,
-      alerts: validationResult.alerts
+      alerts: validationResult.alerts,
     }
     console.log(JSON.stringify(result, null, 2))
   } else {

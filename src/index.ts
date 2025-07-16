@@ -20,10 +20,9 @@ async function main() {
       ])
     )
     .addOption(
-      new Option("-o, --output <string>", "output format").choices([
-        "table",
-        "json",
-      ]).default("table")
+      new Option("-o, --output <string>", "output format")
+        .choices(["table", "json"])
+        .default("table")
     )
     .option(
       "-e, --error-limit <value>",
