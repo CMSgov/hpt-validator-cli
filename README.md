@@ -29,6 +29,7 @@ Arguments:
   version                    (choices: "v2.0", "v2.0.0")
 
 Options:
+  -V, --version              output the CLI version number
   -f, --format <string>      file format of file (choices: "csv", "json")
   -e, --error-limit <value>  maximum number for errors (default: 1000)
   -h, --help                 display help for command
