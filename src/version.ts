@@ -7,20 +7,14 @@ const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 
 export function getVersionInfo(): string {
-  const installedVersion = getCLIVersion()
+  const installedVersion = getLocalVersion()
   const latestVersion = getLatestPublishedVersion()
+  const validatorVersion = getValidatorVersion()
   return [
     `Current CLI version: ${installedVersion ?? "unknown"}`,
     `Latest CLI version: ${latestVersion ?? "unknown"}`,
+    `Using hpt-validator version: ${validatorVersion ?? "unknown"}`,
   ].join(EOL)
-}
-
-export function getCLIVersion(): string {
-  const CLIVersion = getLocalVersion()
-  if (CLIVersion !== null) {
-    return `HPT Validator CLI version ${CLIVersion}`
-  }
-  return "unknown"
 }
 
 function getLocalVersion(): string | undefined {
@@ -35,13 +29,31 @@ function getLocalVersion(): string | undefined {
   return
 }
 
-export function getLatestPublishedVersion(): string | undefined {
+function getValidatorVersion(): string | undefined {
+  const packageJSONPath = path.join(
+    __dirname,
+    "..",
+    "node_modules",
+    "hpt-validator",
+    "package.json"
+  )
+  if (fs.existsSync(packageJSONPath)) {
+    try {
+      return JSON.parse(fs.readFileSync(packageJSONPath, "utf-8"))?.version
+    } catch {
+      return
+    }
+  }
+  return
+}
+
+function getLatestPublishedVersion(): string | undefined {
   let latestVersion: string | undefined = undefined
   const versionCheckCommand = "npm view hpt-validator-cli version"
   try {
     const execResult = execSync(versionCheckCommand)
-      ?.toString()
-      ?.replace(/\s*$/, "")
+      .toString()
+      .replace(/\s*$/, "")
     if (execResult.match(/^[0-9\.]*$/)) {
       latestVersion = execResult
     }
