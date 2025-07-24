@@ -2,6 +2,7 @@
 
 import { Argument, Option, InvalidArgumentError, Command } from "commander"
 import { validate } from "./commands.js"
+import { getVersionInfo } from "./version.js"
 
 main().catch((error) => {
   console.error(error)
@@ -11,6 +12,7 @@ async function main() {
   const program = new Command().name("cms-hpt-validator").showHelpAfterError()
 
   program
+    .version(getVersionInfo(), undefined, "output the CLI version number")
     .argument("<filepath>", "filepath to validate")
     .addArgument(new Argument("<version>").choices(["v2.0", "v2.0.0"]))
     .addOption(

@@ -32,6 +32,7 @@ Arguments:
   version                    (choices: "v2.0", "v2.0.0")
 
 Options:
+  -V, --version              output the CLI version number
   -f, --format <string>      file format of file (choices: "csv", "json")
   -o, --output <string>      output format (choices: "table", "json", default: "table")
   -e, --error-limit <value>  maximum number for errors (default: 1000)
