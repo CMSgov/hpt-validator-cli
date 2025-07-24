@@ -1,5 +1,7 @@
 # Hospital Price Transparency CLI Validator
 
+[![Version](https://img.shields.io/npm/v/@cmsgov/hpt-validator-cli)](https://www.npmjs.com/package/@cmsgov/hpt-validator-cli)
+
 CLI for validating CMS Hospital Price Transparency machine-readable files
 
 ## Getting Started
@@ -16,7 +18,7 @@ These were the minimum versions used to develop the CLI tool. It is recommended 
 Install the CLI globally with
 
 ```sh
-npm install -g hpt-validator-cli
+npm install -g @cmsgov/hpt-validator-cli
 ```
 
 ### Usage
