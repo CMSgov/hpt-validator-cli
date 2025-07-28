@@ -21,6 +21,11 @@ async function main() {
         "json",
       ])
     )
+    .addOption(
+      new Option("-o, --output <string>", "output format")
+        .choices(["table", "json"])
+        .default("table")
+    )
     .option(
       "-e, --error-limit <value>",
       "maximum number for errors",
