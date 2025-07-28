@@ -13,7 +13,7 @@ export function getVersionInfo(): string {
   return [
     `Current CLI version: ${installedVersion ?? "unknown"}`,
     `Latest CLI version: ${latestVersion ?? "unknown"}`,
-    `Using hpt-validator version: ${validatorVersion ?? "unknown"}`,
+    `Using @cmsgov/hpt-validator version: ${validatorVersion ?? "unknown"}`,
   ].join(EOL)
 }
 
@@ -29,11 +29,12 @@ function getLocalVersion(): string | undefined {
   return
 }
 
-function getValidatorVersion(): string | undefined {
+export function getValidatorVersion(): string | undefined {
   const packageJSONPath = path.join(
     __dirname,
     "..",
     "node_modules",
+    "@cmsgov",
     "hpt-validator",
     "package.json"
   )
@@ -49,7 +50,7 @@ function getValidatorVersion(): string | undefined {
 
 function getLatestPublishedVersion(): string | undefined {
   let latestVersion: string | undefined = undefined
-  const versionCheckCommand = "npm view hpt-validator-cli version"
+  const versionCheckCommand = "npm view @cmsgov/hpt-validator-cli version"
   try {
     const execResult = execSync(versionCheckCommand)
       .toString()

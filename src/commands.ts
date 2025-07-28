@@ -9,11 +9,10 @@ import {
   validateJson,
 } from "@cmsgov/hpt-validator"
 import { ValidationResult } from "@cmsgov/hpt-validator/src/types"
+import { getValidatorVersion } from "./version.js"
 
 type FileFormat = "csv" | "json"
 type OutputFormat = "table" | "json"
-
-const VALIDATOR_VERSION = "1.10.0"
 
 export async function validate(
   filepath: string,
@@ -43,7 +42,9 @@ export async function validate(
 
   if (outputFormat === "table") {
     console.log(`Validating file: ${path.resolve(filepath)}`)
-    console.log(`Using hpt-validator version ${VALIDATOR_VERSION}`)
+    console.log(
+      `Using @cmsgov/hpt-validator version ${getValidatorVersion() ?? "unknown"}`
+    )
     console.log(`Validator run started at ${new Date().toString()}`)
   }
 
@@ -62,7 +63,7 @@ export async function validate(
     // Output everything as a single JSON object
     const result = {
       file: path.resolve(filepath),
-      version: VALIDATOR_VERSION,
+      version: getValidatorVersion() ?? "unknown",
       timestamp: new Date().toISOString(),
       valid: validationResult.valid,
       errorCount: validationResult.errors.length,
