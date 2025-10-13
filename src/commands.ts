@@ -4,7 +4,7 @@ import chalk from "chalk"
 import zlib from "zlib"
 import {
   CsvValidationOptions,
-  JsonValidatorOptions,
+  JsonValidationOptions,
   validateCsv,
   validateJson,
 } from "@cmsgov/hpt-validator"
@@ -45,6 +45,7 @@ export async function validate(
     console.log(
       `Using @cmsgov/hpt-validator version ${getValidatorVersion() ?? "unknown"}`
     )
+    console.log(`Using data dictionary version ${version}`)
     console.log(`Validator run started at ${new Date().toString()}`)
   }
 
@@ -63,7 +64,8 @@ export async function validate(
     // Output everything as a single JSON object
     const result = {
       file: path.resolve(filepath),
-      version: getValidatorVersion() ?? "unknown",
+      validatorVersion: getValidatorVersion() ?? "unknown",
+      dataDictionaryVersion: version,
       timestamp: new Date().toISOString(),
       valid: validationResult.valid,
       errorCount: validationResult.errors.length,
@@ -103,7 +105,7 @@ async function validateFile(
   inputStream: fs.ReadStream | NodeJS.ReadableStream,
   version: string,
   format: FileFormat,
-  validatorOptions: CsvValidationOptions | JsonValidatorOptions
+  validatorOptions: CsvValidationOptions | JsonValidationOptions
 ): Promise<ValidationResult | null> {
   const schemaVersion = version as "v1.1" | "v2.0"
   if (format === "csv") {
@@ -116,7 +118,7 @@ async function validateFile(
     return await validateJson(
       inputStream,
       schemaVersion,
-      validatorOptions as JsonValidatorOptions
+      validatorOptions as JsonValidationOptions
     )
   } else {
     return null
