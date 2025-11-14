@@ -14,6 +14,12 @@ import { getValidatorVersion } from "./version.js"
 type FileFormat = "csv" | "json"
 type OutputFormat = "table" | "json"
 
+const REQUIREMENT_DATES = new Map<string, string>([
+  ["2.1.0", "effective July 1, 2024"],
+  ["2.2.0", "effective January 1, 2025"],
+  ["3.0.0", "effective January 1, 2026 and enforced April 1, 2026"],
+])
+
 export async function validate(
   filepath: string,
   version: string,
@@ -45,7 +51,9 @@ export async function validate(
     console.log(
       `Using @cmsgov/hpt-validator version ${getValidatorVersion() ?? "unknown"}`
     )
-    console.log(`Using data dictionary version ${version}`)
+    console.log(
+      `Using data dictionary version ${version} - ${REQUIREMENT_DATES.get(version) ?? "unknown"}`
+    )
     console.log(`Validator run started at ${new Date().toString()}`)
   }
 

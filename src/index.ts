@@ -7,9 +7,9 @@ import * as semver from "semver"
 
 const HELP_TEXT = `
 This tool validates CSV and JSON files against the CMS requirements.
-- v2.1 represents the July 2024 requirements.
-- v2.2 represents the January 2025 requirements.
-- v3.0 represents the April 2026 requirements.
+- v2.1 represents the requirements effective July 1, 2024.
+- v2.2 represents the requirements effective January 1, 2025.
+- v3.0 represents the requirements effective January 1, 2026 and enforced April 1, 2026.
 See https://github.com/CMSgov/hospital-price-transparency for information about these requirements.
 `
 const VERSION_CHOICES = ["v2.1", "v2.2", "v3.0"]
@@ -102,9 +102,3 @@ function adjustVersionChoice(this: Option, value: string) {
     `Allowed choices are ${(this.argChoices ?? []).join(", ")}.`
   )
 }
-
-// if (!this.argChoices.includes(arg)) {
-//         throw new InvalidArgumentError(
-//           `Allowed choices are ${this.argChoices.join(', ')}.`,
-//         );
-//       }
