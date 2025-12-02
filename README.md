@@ -10,7 +10,7 @@ CLI for validating CMS Hospital Price Transparency machine-readable files
 
 These were the minimum versions used to develop the CLI tool. It is recommended to keep both Node and NPM up-to-date with the latest releases.
 
-- Node (version 16.x)
+- Node (version 20.x)
 - NPM (version 8.5.x)
 
 ### Installation
@@ -29,7 +29,7 @@ Usage: cms-hpt-validator [options] <filepath> <version>
 
 Arguments:
   filepath                   filepath to validate
-  version                    (choices: "v2.0", "v2.0.0")
+  version                    version of data dictionary requirements to validate against (choices: "v2.1", "v2.2", "v3.0")
 
 Options:
   -V, --version              output the CLI version number
@@ -44,31 +44,31 @@ Options:
 Basic usage:
 
 ```sh
-cms-hpt-validator ./sample.csv v2.0.0
+cms-hpt-validator ./sample.csv v3.0
 ```
 
 Overriding the default error limit to show 50 errors:
 
 ```sh
-cms-hpt-validator ./sample.csv v2.0.0 -e 50
+cms-hpt-validator ./sample.csv v3.0 -e 50
 ```
 
 Overriding the default error limit to show all errors:
 
 ```sh
-cms-hpt-validator ./sample.csv v2.0.0 -e 0
+cms-hpt-validator ./sample.csv v3.0 -e 0
 ```
 
 Using JSON output format:
 
 ```sh
-cms-hpt-validator ./sample.csv v2.0.0 -o json
+cms-hpt-validator ./sample.csv v3.0 -o json
 ```
 
 Using JSON output format with limited errors:
 
 ```sh
-cms-hpt-validator ./sample.csv v2.0.0 -o json -e 10
+cms-hpt-validator ./sample.csv v3.0 -o json -e 10
 ```
 
 ### Output Formats
