@@ -39,6 +39,10 @@ Options:
   -h, --help                 display help for command
 ```
 
+### Data Dictionary Versions
+
+Refer to the [Hospital Price Transparency Data Dictionary Repository](https://github.com/CMSgov/hospital-price-transparency) for documentation of all requirement versions.
+
 ### Examples
 
 Basic usage:
