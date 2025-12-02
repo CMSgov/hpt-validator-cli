@@ -4,7 +4,7 @@ import chalk from "chalk"
 import zlib from "zlib"
 import {
   CsvValidationOptions,
-  JsonValidatorOptions,
+  JsonValidationOptions,
   validateCsv,
   validateJson,
 } from "@cmsgov/hpt-validator"
@@ -13,6 +13,12 @@ import { getValidatorVersion } from "./version.js"
 
 type FileFormat = "csv" | "json"
 type OutputFormat = "table" | "json"
+
+const REQUIREMENT_DATES = new Map<string, string>([
+  ["2.1.0", "effective July 1, 2024"],
+  ["2.2.0", "effective January 1, 2025"],
+  ["3.0.0", "effective January 1, 2026 and enforced April 1, 2026"],
+])
 
 export async function validate(
   filepath: string,
@@ -45,6 +51,9 @@ export async function validate(
     console.log(
       `Using @cmsgov/hpt-validator version ${getValidatorVersion() ?? "unknown"}`
     )
+    console.log(
+      `Using data dictionary version ${version} - ${REQUIREMENT_DATES.get(version) ?? "unknown"}`
+    )
     console.log(`Validator run started at ${new Date().toString()}`)
   }
 
@@ -63,7 +72,8 @@ export async function validate(
     // Output everything as a single JSON object
     const result = {
       file: path.resolve(filepath),
-      version: getValidatorVersion() ?? "unknown",
+      validatorVersion: getValidatorVersion() ?? "unknown",
+      dataDictionaryVersion: version,
       timestamp: new Date().toISOString(),
       valid: validationResult.valid,
       errorCount: validationResult.errors.length,
@@ -103,7 +113,7 @@ async function validateFile(
   inputStream: fs.ReadStream | NodeJS.ReadableStream,
   version: string,
   format: FileFormat,
-  validatorOptions: CsvValidationOptions | JsonValidatorOptions
+  validatorOptions: CsvValidationOptions | JsonValidationOptions
 ): Promise<ValidationResult | null> {
   const schemaVersion = version as "v1.1" | "v2.0"
   if (format === "csv") {
@@ -116,7 +126,7 @@ async function validateFile(
     return await validateJson(
       inputStream,
       schemaVersion,
-      validatorOptions as JsonValidatorOptions
+      validatorOptions as JsonValidationOptions
     )
   } else {
     return null
