@@ -13,10 +13,20 @@ This tool validates CSV and JSON files against the CMS requirements.
 See https://github.com/CMSgov/hospital-price-transparency for information about these requirements.
 `
 const VERSION_CHOICES = ["v2.1", "v2.2", "v3.0"]
+let SHOW_DEBUG = false
 
-main().catch((error) => {
-  console.error(error)
-})
+function logUnexpectedError(error: Error) {
+  console.error(`An unexpected error occurred: ${error.message}`)
+  if (SHOW_DEBUG) {
+    console.error(error.stack)
+  } else {
+    console.error(
+      "For additional debugging information, run again with the -d option."
+    )
+  }
+}
+
+main().catch(logUnexpectedError)
 
 async function main() {
   const program = new Command()
@@ -51,7 +61,19 @@ async function main() {
       ensureInt,
       1000
     )
-    .action(validate)
+    .option("-d, --debug", "show debug output for system errors", false)
+    .action(
+      async (
+        filePath: string,
+        version: string,
+        options: { [key: string]: string | number }
+      ) => {
+        if (options.debug) {
+          SHOW_DEBUG = true
+        }
+        await validate(filePath, version, options).catch(logUnexpectedError)
+      }
+    )
 
   program.parseAsync(process.argv)
 }
