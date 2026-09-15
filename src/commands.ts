@@ -20,6 +20,8 @@ const REQUIREMENT_DATES = new Map<string, string>([
   ["3.0.0", "effective January 1, 2026 and enforced April 1, 2026"],
 ])
 
+const OUTPUT_CHUNK_SIZE = 1000
+
 export async function validate(
   filepath: string,
   version: string,
@@ -94,7 +96,18 @@ export async function validate(
           `${errors.length === 1 ? "1 error" : `${errors.length} errors`} found`
         )
       )
-      console.table(errors)
+      for (
+        let errorChunk = 0;
+        errorChunk * OUTPUT_CHUNK_SIZE < errors.length;
+        errorChunk++
+      ) {
+        console.table(
+          errors.slice(
+            errorChunk * OUTPUT_CHUNK_SIZE,
+            (errorChunk + 1) * OUTPUT_CHUNK_SIZE
+          )
+        )
+      }
     } else {
       console.log(chalk.green("No errors found"))
     }
