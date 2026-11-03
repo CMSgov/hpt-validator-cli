@@ -36,6 +36,7 @@ Options:
   -f, --format <string>      file format of file (choices: "csv", "json")
   -o, --output <string>      output format (choices: "table", "json", default: "table")
   -e, --error-limit <value>  maximum number for errors (default: 1000)
+  -d, --debug                show debug output for system errors (default: false)
   -h, --help                 display help for command
 ```
 
